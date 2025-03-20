@@ -17,4 +17,3 @@ for k, v in enumerate(posts):
     if posts[k + 1][0] == v[0]:
         for i in range(min(posts[k + 1][0], v[0]), max(posts[k + 1][0], v[0])):
             fullmap[v[1]][i] = "x"
-            print("testing")
