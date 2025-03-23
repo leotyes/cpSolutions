@@ -49,3 +49,5 @@ else:
 
 if current != -1:
     print(current)
+
+# loop through using init -1 and change the thing
