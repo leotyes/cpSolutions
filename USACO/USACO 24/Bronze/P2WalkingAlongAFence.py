@@ -14,6 +14,14 @@ for i in range(max(posts, key=lambda item: item[1])[1] + 1):
         fullmap[i].append("o")
 
 for k, v in enumerate(posts):
-    if posts[k + 1][0] == v[0]:
+    if k == len(posts) - 1:
+        if posts[0][0] == v[0]:
+            print("sybau")
+    elif posts[k + 1][0] == v[0]:
         for i in range(min(posts[k + 1][0], v[0]), max(posts[k + 1][0], v[0])):
             fullmap[v[1]][i] = "x"
+    # else:
+    #     for i in range(min(posts[k + 1][0], v[1]), max(posts[k + 1][0], v[1])):
+    #         fullmap[v[1]][i] = "x"
+
+print(fullmap)
