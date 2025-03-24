@@ -1,12 +1,9 @@
 n = int(input())
-dp = []
 
-# recursion way
-# def appleWays(apples: int):
-#     if apples == 1:
-#         return [[1]]
-#     else:
-#         return appleWays(apples - 1) + 1
-# appleWays(n)
-
-dp.append([[1]])
+def recurse(list, total):
+    if sum(list) == total:
+        print(str(total) + "=" + "+".join(list))
+    else:
+        for i in range(total - sum(list)):
+            recurse(list.append(i), total)
+            # fix this bro it's just recursion
