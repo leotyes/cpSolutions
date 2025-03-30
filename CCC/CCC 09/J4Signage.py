@@ -39,14 +39,14 @@ while True:
             spaces.append((w - len(printing[0])) * ".")
         else:
             for i in range(w - other):
-                spaces[(i % len(spaces))] = spaces[(i % len(spaces)) - 1] + "."
+                spaces[(i % len(spaces))] = spaces[(i % len(spaces))] + "."
     else:
         if test != 1:
             if len(spaces) == 0:
                 spaces.append((w - len(printing[0])) * ".")
             else:
                 for i in range(w - other):
-                    spaces[(i % len(spaces))] = spaces[(i % len(spaces)) - 1] + "."
+                    spaces[(i % len(spaces))] = spaces[(i % len(spaces))] + "."
     for i in range(len(printing) + len(spaces)):
         if i % 2 == 0:
             finalline += printing[int(i / 2)]
