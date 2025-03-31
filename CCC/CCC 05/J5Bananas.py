@@ -12,6 +12,10 @@ while True:
         while word != []:
             if word[:2] == ["A", "N"]:
                 del word[:2]
+                if word == []:
+                    print("NO")
+                    word.append("fiosadjioja")
+                    break
             elif word[:2] == ["B", "S"]:
                 print("NO")
                 break
@@ -29,3 +33,5 @@ while True:
                 break
         if word == []:
             print("YES")
+
+# N combines words
