@@ -1,6 +1,7 @@
 from functools import cache
 
 s, t = input().split()
+memo = []
 
 @cache
 def construct(l, sc, tc):
@@ -12,3 +13,5 @@ def construct(l, sc, tc):
         print(l)
 
 construct("", 0, 0)
+
+# maybe make my own memoization
