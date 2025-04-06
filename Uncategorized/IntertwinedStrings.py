@@ -1,6 +1,8 @@
-s, t = input().split()
-memo = []
+from functools import cache
 
+s, t = input().split()
+
+@cache
 def construct(l, sc, tc):
     if sc != len(s):
         construct(l + s[sc], sc + 1, tc)
