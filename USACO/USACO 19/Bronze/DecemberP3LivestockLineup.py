@@ -29,23 +29,27 @@ for i in ps:
             if k == 0:
                 if i[k + 1] != list(cs[v])[0]:
                     fail = True
+                    break
             elif k == len(i) - 1:
                 if i[k - 1] != list(cs[v])[0]:
                     fail = True
+                    break
             else:
                 if i[k + 1] != list(cs[v])[0] and i[k - 1] != list(cs[v])[0]:
                     fail = True
+                    break
         elif len(cs[v]) == 2:
             if k == 0:
                 fail = True
+                break
             elif k == len(i) - 1:
                 fail = True
+                break
             else:
                 if i[k + 1] != list(cs[v])[0] or i[k - 1] != list(cs[v])[1]:
                     if i[k + 1] != list(cs[v])[1] or i[k - 1] != list(cs[v])[0]:
                         fail = True
-        if fail:
-            break
+                        break
     if not fail:
         p.append(i)
 
