@@ -46,3 +46,33 @@ else:
         print(sorted(ns)[1])
     else:
         print(m)
+
+
+# def main():
+#     input = sys.stdin.readline
+#     n = int(input())
+#     a = list(map(int, input().split()))
+#     # Prefix-GCD: prefix[i] = gcd(a[0],…,a[i])
+#     prefix = [0]*n
+#     prefix[0] = a[0]
+#     for i in range(1, n):
+#         prefix[i] = gcd(prefix[i-1], a[i])
+#     # Suffix-GCD:  suffix[i] = gcd(a[i],…,a[n-1])
+#     suffix = [0]*n
+#     suffix[n-1] = a[n-1]
+#     for i in range(n-2, -1, -1):
+#         suffix[i] = gcd(suffix[i+1], a[i])
+#
+#     answer = 0
+#     for i in range(n):
+#         if i == 0:
+#             # remove a[0], use suffix[1]
+#             answer = max(answer, suffix[1])
+#         elif i == n-1:
+#             # remove a[n-1], use prefix[n-2]
+#             answer = max(answer, prefix[n-2])
+#         else:
+#             # remove a[i], combine prefix[i-1] and suffix[i+1]
+#             answer = max(answer, gcd(prefix[i-1], suffix[i+1]))
+#
+#     print(answer)
