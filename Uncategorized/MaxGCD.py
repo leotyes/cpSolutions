@@ -14,8 +14,6 @@ def gcd(a, b):
 
 if n == 2:
     print(max(ns))
-elif n == 3:
-    print(max(gcd(ns[0], ns[1]), gcd(ns[1], ns[2]), gcd(ns[2], ns[0])))
 else:
     p.append(ns[0])
     o = gcd(ns[0], ns[1])
