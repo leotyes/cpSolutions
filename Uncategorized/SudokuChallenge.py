@@ -1,71 +1,44 @@
-s = []
-sf = []
+import sys
+input = sys.stdin.readline
+
+g = []
+s = [ [False] * 10 for x in range(9) ]
+r = [ [False] * 10 for x in range(9) ]
+c = [ [False] * 10 for x in range(9) ]
+e = []
 
 for i in range(9):
-    s.append(list(input()))
-sf = [ list(x) for x in list(zip(*s)) ]
+    g.append(list(input().strip()))
 
-def solve(cs, csf, cl, ah, asq):
-    a = []
-    ahn = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    avn = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    asqn = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    chsq = False
-    chh = False
-    p = False
-    if cs[cl[0]][cl[1]] == ".":
-        p = True
-        for i in csf[cl[1]]:
-            if i != ".":
-                avn.remove(int(i))
-    if cl[1] % 3 == 0:
-        chsq = True
-        if cl[1] == 0:
-            chh = True
-            for i in cs[cl[0]]:
-                if i != ".":
-                    ahn.remove(int(i))
-        for i in range(cl[0] - (cl[0] % 3), cl[0] - (cl[0] % 3) + 3):
-            for j in range(cl[1], cl[1] + 3):
-                if cs[i][j] != "." and int(cs[i][j]) in asqn:
-                    asqn.remove(int(cs[i][j]))
-    if not chh:
-        ahn = ah
-    if not chsq:
-        asqn = asq
-    for i in avn:
-        if i in ahn and i in asqn:
-            a.append(i)
-    if not p:
-        csc = [ x[:] for x in cs ]
-        if cl[1] == 8:
-            if cl[0] != 8:
-                r = solve(csc, [ list(x) for x in list(zip(*csc)) ], [cl[0] + 1, 0], [], [])
-                if r: return r
-            else:
-                return csc
-        else:
-            r = solve(csc, [ list(x) for x in list(zip(*csc)) ], [cl[0], cl[1] + 1], ahn[:], asqn[:])
-            if r: return r
+def solve(ci):
+    a = e[ci]
+    if ci == len(e) - 1:
+        for i in range(1, 10):
+            if not r[a[0]][i] and not c[a[1]][i] and not s[(a[0] // 3 * 3 + a[1] // 3)][i]:
+                g[a[0]][a[1]] = str(i)
+        for i in g:
+            print("".join([ int(x) if type(x) == int else x for x in i ]))
+        sys.exit(0)
     else:
-        for i in a:
-            csc = [ x[:] for x in cs ]
-            csc[cl[0]][cl[1]] = str(i)
-            if cl[1] == 8:
-                if cl[0] != 8:
-                    r = solve(csc, [ list(x) for x in list(zip(*csc)) ], [cl[0] + 1, 0], [], [])
-                    if r: return r
-                else:
-                    return csc
-            else:
-                ahnn = ahn[:]
-                ahnn.remove(i)
-                asqnn = asqn[:]
-                asqnn.remove(i)
-                r = solve(csc, [ list(x) for x in list(zip(*csc)) ], [cl[0], cl[1] + 1], ahnn[:], asqnn[:])
-                if r: return r
+        for i in range(1, 10):
+            if not r[a[0]][i] and not c[a[1]][i] and not s[(a[0] // 3 * 3 + a[1] // 3)][i]:
+                r[a[0]][i] = True
+                c[a[1]][i] = True
+                s[(a[0] // 3 * 3 + a[1] // 3)][i] = True
+                g[a[0]][a[1]] = str(i)
+                solve(ci + 1)
+                r[a[0]][i] = False
+                c[a[1]][i] = False
+                s[(a[0] // 3 * 3 + a[1] // 3)][i] = False
 
-r = solve(s[:], sf, [0, 0], [], [])
+for k, v in enumerate(g):
+    for l, m in enumerate(v):
+        if m == ".":
+            e.append([k, l])
+        else:
+            r[k][int(m)] = True
+            c[l][int(m)] = True
+            ss = k // 3 * 3 + l // 3
+            s[ss][int(m)] = True
 
-for i in r:
-    print("".join(i))
+solve(0)
