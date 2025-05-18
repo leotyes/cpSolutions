@@ -3,45 +3,38 @@ e = [[False] * n for x in range(n)]
 r = []
 c = [0]
 
-
 def place(q):
-    ex = []
     qq = q.copy()
-    if e == [[True] * n for x in range(n)]:
+    for i in e:
+        print(i)
+    print(q)
+    if len(q) == n:
         c[0] += 1
-    elif not q in r:
-        for k, v in enumerate(e):
-            for l, m in enumerate(v):
-                if m:
-                    ex.append([k + 1, l + 1])
-        for k, v in enumerate(e):
-            for l, m in enumerate(v):
-                if not m:
+    elif frozenset(qq) not in r and e != [ [True] * n for x in range(n) ]:
+        r.append(frozenset(qq))
+        for k in range(n):
+            for l in range(n):
+                if not e[k][l]:
                     i = (k, l)
                     qq.add((k, l))
-                    r.append(qq)
-                    p = set()
+                    p = {(k, l)}
                     for j in range(n):
-                        p.add(tuple([j, i[1]]))
-                    for j in range(n):
-                        p.add(tuple([i[0], j]))
-                    for j in range(n):
-                        if i[0] + j < n and i[1] + j < n:
-                            e[i[0] + j][i[1] + j] = True
-                            p.add(tuple([i[0] + j, i[1] + j]))
-                        if i[0] + j < n and i[1] - j >= 0:
-                            e[i[0] + j][i[1] - j] = True
-                            p.add(tuple([i[0] + j, i[1] - j]))
-                        if i[0] - j >= 0 and i[1] - j >= 0:
-                            e[i[0] - j][i[1] - j] = True
-                            p.add(tuple([i[0] - j, i[1] - j]))
-                        if i[0] - j >= 0 and i[1] + j < n:
-                            e[i[0] - j][i[1] + j] = True
-                            p.add(tuple([i[0] - j, i[1] + j]))
+                        if not e[j][i[1]]:
+                            p.add((j, i[1]))
+                            e[j][i[1]] = True
+                        if not e[i[0]][j]:
+                            p.add((i[0], j))
+                            e[i[0]][j] = True
+                    for j in range(1, n + 1):
+                        for jj in [(j, j), (j, -j), (-j, -j), (-j, j)]:
+                            if 0 <= i[0] + jj[0] < n and 0 <= i[1] + jj[1] < n and not e[i[0] + jj[0]][i[1] + jj[1]]:
+                                e[i[0] + jj[0]][i[1] + jj[1]] = True
+                                p.add((i[0] + jj[0], i[1] + jj[1]))
+                    print("___________________")
                     place(qq)
+                    qq.remove((k, l))
                     for ii in p:
-                        if ii not in ex:
-                            e[i[0]][i[1]] = False
+                        e[ii[0]][ii[1]] = False
 
 place(set())
 print(c[0])
