@@ -4,24 +4,29 @@ input = sys.stdin.readline
 n, q = map(int, input().strip().split())
 a = list(map(int, input().strip().split()))
 
+bs = set()
+for k, v in enumerate(a):
+    if k != 0:
+        if v < a[k - 1]:
+            bs.add(k)
+    elif v < a[-1]:
+        bs.add(k)
 for j in range(q):
     i, x = map(int, input().strip().split())
     a[i - 1] = x
-    b = 0
-    kk = -1
+    if a[(i - 2) % n] > a[i - 1]:
+        bs.add(i - 1)
+    else:
+        bs.discard(i - 1)
 
-    for k, v in enumerate(a):
-        if k != 0:
-            if v < a[k - 1]:
-                b += 1
-                kk = k
-                if b == 2:
-                    print("-1")
-                    break
-        elif a[-1] > v:
-            b += 1
-            kk = k
-    if b == 0:
+    if a[i - 1] > a[i % n]:
+        bs.add(i % n)
+    else:
+        bs.discard(i % n)
+
+    if len(bs) >= 2:
+        print("-1")
+    elif len(bs) == 1:
+        print(min(list(bs)[0], len(a) - list(bs)[0]))
+    else:
         print("0")
-    elif b != 2:
-        print(min(kk, len(a) - kk))
